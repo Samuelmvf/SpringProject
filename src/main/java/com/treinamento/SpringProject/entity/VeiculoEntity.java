@@ -4,9 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -40,4 +42,6 @@ public class VeiculoEntity implements Serializable {
 	@Column(name = "versao", nullable = false)
 	private Double versao;
 	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	private ClienteEntity cliente;
 }
