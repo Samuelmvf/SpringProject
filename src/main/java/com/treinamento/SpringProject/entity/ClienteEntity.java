@@ -1,6 +1,7 @@
 package com.treinamento.SpringProject.entity;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -36,12 +42,17 @@ public class ClienteEntity implements Serializable {
 	@Column(name = "id_cliente", nullable = false)
 	private Long id;
 	
+	@NotNull(message = "O campo nome não pode ser nulo.")
+	@Size(min = 2, message = "O nome digitado não é um nome válido.")
 	@Column(name = "nome", nullable = false)
 	private String nome;
 	
+	@NotNull(message = "O campo email não pode ser nulo.")
+	@Email(message = "O email digitado não é um email válido.")
 	@Column(name = "email", nullable = false)
 	private String email;
 	
+	@JsonManagedReference
 	@Builder.Default
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<VeiculoEntity> veiculos = new ArrayList<>();

@@ -51,6 +51,7 @@ public class VeiculoService {
 		return ResponseEntity.badRequest().build();
 	}
 	public ResponseEntity<String> excluir(Long id) {
+		
 		if (id != null && repository.existsById(id)) {
 			repository.deleteById(id);
 			return ResponseEntity.ok("Excluido com sucesso");

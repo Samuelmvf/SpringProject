@@ -2,6 +2,8 @@ package com.treinamento.SpringProject.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +27,7 @@ public class ClienteController {
 	private ClienteService clienteService;
 	
 	@PostMapping(value = "/criar", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ClienteEntity> criarCliente(@RequestBody ClienteEntity cliente) {
+	public ResponseEntity<?> criarCliente(@Valid @RequestBody ClienteEntity cliente) {
 		return clienteService.salvarCliente(cliente);
 	}
 	
@@ -34,13 +36,13 @@ public class ClienteController {
 		return clienteService.findAll();
 	}
 	
-	@GetMapping(value = "/listar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ClienteEntity> findAllPath(@PathVariable Long id) {
 		return clienteService.findById(id);
 	}
 	
 	@PutMapping(value = "/atualizar", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ClienteEntity> atualizar(@RequestBody ClienteEntity cliente) {
+	public ResponseEntity<ClienteEntity> atualizar(@Valid @RequestBody ClienteEntity cliente) {
 		return clienteService.atualizar(cliente);
 	}
 	

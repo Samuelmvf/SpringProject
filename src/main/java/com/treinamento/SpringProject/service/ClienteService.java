@@ -20,11 +20,16 @@ public class ClienteService {
 	@Autowired
 	private ClienteRepository repository;
 	
-	public ResponseEntity<ClienteEntity> salvarCliente(ClienteEntity cliente){
+	public ResponseEntity<?> salvarCliente(ClienteEntity cliente){
 		
 		if(cliente != null) {
-			ClienteEntity novoCliente = repository.save(cliente);
-			return new ResponseEntity<>(novoCliente, HttpStatus.CREATED);
+			Optional<ClienteEntity> existente = repository.findByEmail(cliente.getEmail());
+			if(existente.isPresent()) {
+				return ResponseEntity.badRequest().body("Email já cadastrado.");
+			} else {
+				ClienteEntity novoCliente = repository.save(cliente);
+				return new ResponseEntity<>(novoCliente, HttpStatus.CREATED);
+			}
 		}
 		return ResponseEntity.badRequest().build();
 	}

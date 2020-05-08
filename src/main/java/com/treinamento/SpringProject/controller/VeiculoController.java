@@ -2,6 +2,8 @@ package com.treinamento.SpringProject.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +27,7 @@ public class VeiculoController {
 	private VeiculoService veiculoService;
 	
 	@PostMapping(value = "/criar")
-	public ResponseEntity<VeiculoEntity> criarVeiculo(@RequestBody VeiculoEntity veiculo) {
+	public ResponseEntity<VeiculoEntity> criarVeiculo(@Valid @RequestBody VeiculoEntity veiculo) {
 		return veiculoService.salvarVeiculo(veiculo);
 	}
 	
@@ -34,13 +36,13 @@ public class VeiculoController {
 		return veiculoService.findAll();
 	}
 	
-	@GetMapping(value = "/listar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<VeiculoEntity> findAllPath(@PathVariable Long id) {
 		return veiculoService.findById(id);
 	}
 	
 	@PutMapping(value = "/atualizar", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<VeiculoEntity> atualizar(@RequestBody VeiculoEntity veiculo) {
+	public ResponseEntity<VeiculoEntity> atualizar(@Valid @RequestBody VeiculoEntity veiculo) {
 		return veiculoService.atualizar(veiculo);
 	}
 	
