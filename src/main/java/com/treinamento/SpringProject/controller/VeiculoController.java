@@ -1,7 +1,8 @@
-package com.treinamento.SpringProject.resource;
+package com.treinamento.SpringProject.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,8 +19,9 @@ import com.treinamento.SpringProject.service.VeiculoService;
 
 @RestController
 @RequestMapping(value = "/api/veiculo")
-public class VeiculoResource {
+public class VeiculoController {
 	
+	@Autowired
 	private VeiculoService veiculoService;
 	
 	@PostMapping(value = "/criar")

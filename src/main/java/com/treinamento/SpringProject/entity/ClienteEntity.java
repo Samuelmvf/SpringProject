@@ -42,6 +42,7 @@ public class ClienteEntity implements Serializable {
 	@Column(name = "email", nullable = false)
 	private String email;
 	
+	@Builder.Default
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<VeiculoEntity> veiculos = new ArrayList<>();
 	

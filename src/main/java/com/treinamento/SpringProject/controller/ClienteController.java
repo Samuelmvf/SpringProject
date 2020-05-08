@@ -1,7 +1,8 @@
-package com.treinamento.SpringProject.resource;
+package com.treinamento.SpringProject.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,16 +19,17 @@ import com.treinamento.SpringProject.service.ClienteService;
 
 @RestController
 @RequestMapping(value = "/api/cliente")
-public class ClienteResource {
+public class ClienteController {
 	
+	@Autowired
 	private ClienteService clienteService;
 	
-	@PostMapping(value = "/criar")
+	@PostMapping(value = "/criar", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<ClienteEntity> criarCliente(@RequestBody ClienteEntity cliente) {
 		return clienteService.salvarCliente(cliente);
 	}
 	
-	@GetMapping(value = "/listar")
+	@GetMapping(value = "/listar", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ClienteEntity>> findAll() {
 		return clienteService.findAll();
 	}
