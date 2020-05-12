@@ -27,7 +27,7 @@ public class VeiculoController {
 	private VeiculoService veiculoService;
 	
 	@PostMapping(value = "/criar")
-	public ResponseEntity<VeiculoEntity> criarVeiculo(@Valid @RequestBody VeiculoEntity veiculo) {
+	public ResponseEntity<?> criarVeiculo(@Valid @RequestBody VeiculoEntity veiculo) {
 		return veiculoService.salvarVeiculo(veiculo);
 	}
 	

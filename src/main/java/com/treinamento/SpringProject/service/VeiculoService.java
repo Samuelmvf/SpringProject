@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.treinamento.SpringProject.entity.VeiculoEntity;
+import com.treinamento.SpringProject.repository.ClienteRepository;
 import com.treinamento.SpringProject.repository.VeiculoRepository;
 
 @Service
@@ -20,11 +21,20 @@ public class VeiculoService {
 	@Autowired
 	private VeiculoRepository repository;
 	
-	public ResponseEntity<VeiculoEntity> salvarVeiculo(VeiculoEntity veiculo){
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	public ResponseEntity<?> salvarVeiculo(VeiculoEntity veiculo){
 		
 		if(veiculo != null) {
-			VeiculoEntity novoVeiculo = repository.save(veiculo);
-			return new ResponseEntity<>(novoVeiculo, HttpStatus.CREATED);
+			if(clienteRepository.findById(veiculo.getCliente().getId()).isPresent())
+			{
+				VeiculoEntity novoVeiculo = repository.save(veiculo);
+				return new ResponseEntity<>(novoVeiculo, HttpStatus.CREATED);
+			}
+			else {
+				return ResponseEntity.badRequest().body("O Cliente referenciado não existe.");
+			}
 		}
 		return ResponseEntity.badRequest().build();
 	}
